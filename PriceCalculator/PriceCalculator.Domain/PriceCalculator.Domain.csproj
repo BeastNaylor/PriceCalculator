@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="InputValidator.cs" />
+    <Compile Include="Interfaces\IInputValidator.cs" />
     <Compile Include="Interfaces\IProductLoader.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="ProductLoader.cs" />
