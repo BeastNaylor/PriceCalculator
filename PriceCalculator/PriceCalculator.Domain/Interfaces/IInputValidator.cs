@@ -9,7 +9,7 @@ namespace PriceCalculator.Domain.Interfaces
 {
     public interface IInputValidator
     {
-        ICollection<Product> GetValidatedProducts();
+        IDictionary<Product, int> GetValidatedProducts();
 
         bool ValidateInput(IEnumerable<string> input);
     }

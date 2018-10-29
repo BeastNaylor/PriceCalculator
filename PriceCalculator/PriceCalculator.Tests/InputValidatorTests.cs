@@ -5,6 +5,7 @@ using NUnit.Framework;
 using PriceCalculator.Domain;
 using PriceCalculator.Domain.Models;
 using PriceCalculator.Domain.Interfaces;
+using System.Linq;
 
 namespace PriceCalculator.Tests
 {
@@ -57,7 +58,13 @@ namespace PriceCalculator.Tests
         public void CallValidProductsAfterLoadGivesProducts(string[] input)
         {
             validator.ValidateInput(input);
-            Assert.AreEqual(input.Length, validator.GetValidatedProducts().Count);
+            var validProducts = validator.GetValidatedProducts();
+            //check that for each item we have inputted, it appears the correct number of times
+            foreach (var inputItem in input.GroupBy(i => i))
+            {
+                var product = validProducts.Keys.Where(k => k.ProductName.ToLower() == inputItem.Key.ToLower()).Single();
+                Assert.AreEqual(inputItem.Count(), validProducts[product]);
+            }
         }
     }
 }

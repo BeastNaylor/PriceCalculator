@@ -11,7 +11,7 @@ namespace PriceCalculator.Domain
     public class InputValidator : IInputValidator
     {
         private IProductLoader _loader;
-        private ICollection<Product> _inputProducts;
+        private IDictionary<Product, int> _inputProducts;
         private bool _hasBeenValidated;
 
 
@@ -20,7 +20,7 @@ namespace PriceCalculator.Domain
             _loader = loader;
         }
 
-        public ICollection<Product> GetValidatedProducts()
+        public IDictionary<Product, int> GetValidatedProducts()
         {
             //if we haven't Validated any input successfully, throw an exception
             if (!_hasBeenValidated) { throw new InvalidOperationException("No products have been loaded."); }
@@ -29,15 +29,18 @@ namespace PriceCalculator.Domain
 
         public bool ValidateInput(IEnumerable<string> input)
         {
-            _inputProducts = new List<Product>();
+            _inputProducts = new Dictionary<Product, int>();
 
             //compare the input we have received with the validProducts
             foreach (string inputItem in input)
             {
-                var product = _loader.GetProducts().Where(p => p.ProductName.ToLower(new System.Globalization.CultureInfo("en-GB")) == inputItem.ToLower(new System.Globalization.CultureInfo("en-GB"))).SingleOrDefault();
+                var product = _loader.GetProducts().Where(p => p.ProductName.ToLower() == inputItem.ToLower()).SingleOrDefault();
                 if (product != null)
                 {
-                    _inputProducts.Add(product);
+                    if (!_inputProducts.ContainsKey(product))
+                        _inputProducts.Add(product, 0);
+
+                    _inputProducts[product]++;
                 }
                 else
                 {
