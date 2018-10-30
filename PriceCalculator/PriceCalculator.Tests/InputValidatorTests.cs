@@ -16,7 +16,8 @@ namespace PriceCalculator.Tests
         {
             //new string[] {"Bread"},
             new string[] {"Milk", "Bread", "Milk"},
-            new string[] {"bread", "MILK"}
+            new string[] {"bread", "MILK"},
+            new string[] {"Milk ", " Bread"},
         };
 
         static object[] GetInvalidInput =
@@ -62,7 +63,7 @@ namespace PriceCalculator.Tests
             //check that for each item we have inputted, it appears the correct number of times
             foreach (var inputItem in input.GroupBy(i => i))
             {
-                var product = validProducts.Keys.Where(k => k.ProductName.ToLower() == inputItem.Key.ToLower()).Single();
+                var product = validProducts.Keys.Where(k => k.ProductName.ToLower() == inputItem.Key.Trim().ToLower()).Single();
                 Assert.AreEqual(inputItem.Count(), validProducts[product]);
             }
         }

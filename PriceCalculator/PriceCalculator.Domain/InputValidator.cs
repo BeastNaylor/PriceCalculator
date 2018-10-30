@@ -34,7 +34,7 @@ namespace PriceCalculator.Domain
             //compare the input we have received with the validProducts
             foreach (string inputItem in input)
             {
-                var product = _loader.GetProducts().Where(p => p.ProductName.ToLower() == inputItem.ToLower()).SingleOrDefault();
+                var product = _loader.GetProducts().Where(p => p.ProductName.ToLower() == inputItem.Trim().ToLower()).SingleOrDefault();
                 if (product != null)
                 {
                     if (!_inputProducts.ContainsKey(product))

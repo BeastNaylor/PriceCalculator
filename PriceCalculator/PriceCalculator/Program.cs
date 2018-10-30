@@ -20,6 +20,7 @@ namespace PriceCalculator
             {
                 //TODO: could return which of the inputs were invalid
                 Console.WriteLine("Invalid input received.");
+                Console.ReadKey();
                 return;
             }
             //load the specialOffers and pass to the checkout to determine savings
