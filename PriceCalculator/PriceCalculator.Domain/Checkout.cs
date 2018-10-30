@@ -8,26 +8,37 @@ using PriceCalculator.Domain.Models;
 
 namespace PriceCalculator.Domain
 {
-    class Checkout : ICheckout
+    public class Checkout : ICheckout
     {
+        public readonly IDictionary<Product, int> SelectedProducts;
+        public List<Product> DiscountedProducts{ get; private set; }
+
+        public Checkout(IDictionary<Product, int> products)
+        {
+            SelectedProducts = products;
+        }
+
         public decimal DetermineSubtotal()
         {
-            throw new NotImplementedException();
+            return SelectedProducts.Sum(p => p.Key.Price * p.Value);
         }
 
         public decimal DetermineTotal()
         {
-            throw new NotImplementedException();
+            return DetermineSubtotal() + DiscountedProducts.Sum(p => p.Price);
         }
 
-        public IEnumerable<Product> GetSpecialOffers()
+        public void ProcessSpecialOffers(ICollection<ISpecialOffer> offers)
         {
-            throw new NotImplementedException();
-        }
-
-        public void ProcessSpecialOffers(IEnumerable<ISpecialOfferLoader> products)
-        {
-            throw new NotImplementedException();
+            DiscountedProducts = new List<Product>();
+            foreach (ISpecialOffer offer in offers)
+            {
+                var discountProduct = offer.DetermineSpecialOffer(SelectedProducts);
+                if (discountProduct != null)
+                {
+                    DiscountedProducts.Add(discountProduct);
+                }
+            }
         }
     }
 }

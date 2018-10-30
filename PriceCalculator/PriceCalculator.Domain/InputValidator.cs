@@ -27,7 +27,7 @@ namespace PriceCalculator.Domain
             return _inputProducts;
         }
 
-        public bool ValidateInput(IEnumerable<string> input)
+        public bool ValidateInput(ICollection<string> input)
         {
             _inputProducts = new Dictionary<Product, int>();
 
@@ -38,7 +38,9 @@ namespace PriceCalculator.Domain
                 if (product != null)
                 {
                     if (!_inputProducts.ContainsKey(product))
+                    {
                         _inputProducts.Add(product, 0);
+                    }
 
                     _inputProducts[product]++;
                 }

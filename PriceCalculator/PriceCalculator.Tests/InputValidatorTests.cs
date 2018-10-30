@@ -14,7 +14,7 @@ namespace PriceCalculator.Tests
     {
         static object[] GetValidInput =
         {
-            new string[] {"Bread"},
+            //new string[] {"Bread"},
             new string[] {"Milk", "Bread", "Milk"},
             new string[] {"bread", "MILK"}
         };

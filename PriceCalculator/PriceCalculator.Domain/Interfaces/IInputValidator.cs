@@ -11,6 +11,6 @@ namespace PriceCalculator.Domain.Interfaces
     {
         IDictionary<Product, int> GetValidatedProducts();
 
-        bool ValidateInput(IEnumerable<string> input);
+        bool ValidateInput(ICollection<string> input);
     }
 }

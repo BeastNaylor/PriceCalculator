@@ -11,9 +11,7 @@ namespace PriceCalculator.Domain.Interfaces
     {
         decimal DetermineSubtotal();
 
-        void ProcessSpecialOffers(IEnumerable<ISpecialOfferLoader> products);
-
-        IEnumerable<Product> GetSpecialOffers();
+        void ProcessSpecialOffers(ICollection<ISpecialOffer> offers);
 
         decimal DetermineTotal();
     }

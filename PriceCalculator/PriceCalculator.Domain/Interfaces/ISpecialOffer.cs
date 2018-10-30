@@ -9,6 +9,6 @@ namespace PriceCalculator.Domain.Interfaces
 {
     public interface ISpecialOffer
     {
-        Product DetermineSpecialOffer(IEnumerable<Product> _products);
+        Product DetermineSpecialOffer(IDictionary<Product, int> products);
     }
 }

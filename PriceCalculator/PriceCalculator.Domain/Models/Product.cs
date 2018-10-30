@@ -20,13 +20,12 @@ namespace PriceCalculator.Domain.Models
             Product product = value as Product;
 
             return (product != null)
-                && (ProductName == product.ProductName)
-                && (Price == product.Price);
+                && (ProductName == product.ProductName);
         }
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return ProductName.GetHashCode();
         }
     }
 }

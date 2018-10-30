@@ -16,15 +16,18 @@ namespace PriceCalculator
 
             Console.WriteLine("Please enter the products to calculate as CSV (i.e. 'Milk,Bread,Butter':");
             var input = Console.ReadLine().Split(',');
-            if (!inputValidator.ValidateInput(args))
+            if (!inputValidator.ValidateInput(input))
             {
                 //TODO: could return which of the inputs were invalid
                 Console.WriteLine("Invalid input received.");
                 return;
             }
-            decimal cost = 0;
+            //load the specialOffers and pass to the checkout to determine savings
+            var specialOfferLoader = new SpecialOfferLoader();
+            var checkout = new Checkout(inputValidator.GetValidatedProducts());
+            checkout.ProcessSpecialOffers(specialOfferLoader.LoadCurrentOffers());
 
-            Console.Write($"These products come to £{cost}");
+            Console.Write($"These products come to £{checkout.DetermineTotal().ToString("0.00")}");
             Console.ReadKey();
         }
     }

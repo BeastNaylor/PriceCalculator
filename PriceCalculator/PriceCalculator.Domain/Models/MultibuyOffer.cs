@@ -18,9 +18,23 @@ namespace PriceCalculator.Domain.Models
             NumRequired = numRequiredForFree;
         }
 
-        public Product DetermineSpecialOffer(IEnumerable<Product> _products)
+        public Product DetermineSpecialOffer(IDictionary<Product, int> products)
         {
-            throw new NotImplementedException();
+            //check if the products contains the item on offer.
+            var discountProducts = products.Where(p => p.Key.ProductName == ProductName).SingleOrDefault();
+            if (discountProducts.Value > 0)
+            {
+                //if we have the products, check how many should be free by / by the num required
+                var numProductsFree = discountProducts.Value / NumRequired;
+                if (numProductsFree > 0)
+                {
+                    //return an item of that is the price of the discount
+                    var finalDiscountValue = decimal.Round(-1 * numProductsFree * discountProducts.Key.Price, 2);
+                    return new Product($"{discountProducts.Key.ProductName} Multibuy", finalDiscountValue);
+                }
+            }
+            // if there are no items returning, we have no discount
+            return null;
         }
 
         public override bool Equals(object value)
@@ -31,13 +45,12 @@ namespace PriceCalculator.Domain.Models
             MultibuyOffer offer = value as MultibuyOffer;
 
             return (offer != null)
-                && (ProductName == offer.ProductName)
-                && (NumRequired == offer.NumRequired);
+                && (ProductName == offer.ProductName);
         }
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return ProductName.GetHashCode();
         }
     }
 }
