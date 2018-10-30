@@ -11,11 +11,12 @@ namespace PriceCalculator.Domain
     public class Checkout : ICheckout
     {
         public readonly IDictionary<Product, int> SelectedProducts;
-        public List<Product> DiscountedProducts{ get; private set; }
+        public ICollection<Product> DiscountedProducts{ get; private set; }
 
         public Checkout(IDictionary<Product, int> products)
         {
             SelectedProducts = products;
+            DiscountedProducts = new List<Product>();
         }
 
         public decimal DetermineSubtotal()

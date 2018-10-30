@@ -37,15 +37,17 @@ namespace PriceCalculator.Tests
         }
 
         [Test]
-        public void CheckoutMultipleProductSubTotalIsCorrect()
+        public void CheckoutMultipleProductNoOffersIsCorrect()
         {
             var products = new Dictionary<Product, int>();
             products.Add(new Product("Butter", 2.3m), 2);
             products.Add(new Product("Cheese", 1.5m), 1);
-            var expectedSubtotal = 6.1m;
+            var expectedTotal = 6.1m;
 
             var checkout = new Checkout(products);
-            Assert.AreEqual(expectedSubtotal, checkout.DetermineSubtotal());
+            Assert.AreEqual(expectedTotal, checkout.DetermineSubtotal());
+            //no offers so subtotal is same as total
+            Assert.AreEqual(expectedTotal, checkout.DetermineTotal());
         }
 
         [Test]
@@ -60,9 +62,22 @@ namespace PriceCalculator.Tests
 
             var expectedOffer = new Product("Sample Offer", -1m);
             Assert.AreEqual(1, checkout.DiscountedProducts.Count());
-            Assert.Contains(expectedOffer, checkout.DiscountedProducts);
+            Assert.Contains(expectedOffer, checkout.DiscountedProducts.ToList());
+        }
 
+        [Test]
+        public void CheckoutMultipleProductTotalIsCorrect()
+        {
+            var products = new Dictionary<Product, int>();
+            products.Add(new Product("Butter", 2.3m), 2);
+            products.Add(new Product("Cheese", 1.5m), 4);
+
+            var checkout = new Checkout(products);
+            checkout.ProcessSpecialOffers(offers);
+
+            var expectedTotal = 9.6m;
             
+            Assert.AreEqual(expectedTotal, checkout.DetermineTotal());
         }
 
     }
