@@ -7,8 +7,8 @@ using PriceCalculator.Domain.Models;
 
 namespace PriceCalculator.Domain.Interfaces
 {
-    public interface IProductLoader
+    public interface ISpecialOffer
     {
-        ICollection<Product> GetProducts();
+        Product DetermineSpecialOffer(IEnumerable<Product> _products);
     }
 }

@@ -69,6 +69,8 @@
     <Compile Include="InputValidatorTests.cs" />
     <Compile Include="ProductLoaderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpecialOfferLoaderTests.cs" />
+    <Compile Include="SpecialOfferTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

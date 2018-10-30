@@ -40,12 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Checkout.cs" />
     <Compile Include="InputValidator.cs" />
+    <Compile Include="Interfaces\ICheckout.cs" />
     <Compile Include="Interfaces\IInputValidator.cs" />
     <Compile Include="Interfaces\IProductLoader.cs" />
+    <Compile Include="Interfaces\ISpecialOffer.cs" />
+    <Compile Include="Interfaces\ISpecialOfferLoader.cs" />
+    <Compile Include="Models\BonusProductOffer.cs" />
+    <Compile Include="Models\MultibuyOffer.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="ProductLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpecialOfferLoader.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

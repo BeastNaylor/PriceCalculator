@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using NUnit.Framework;
 using PriceCalculator.Domain;
 using PriceCalculator.Domain.Models;
@@ -20,7 +21,7 @@ namespace PriceCalculator.Tests
         {
             var loader = new ProductLoader();
             var products = loader.GetProducts();
-            Assert.Contains(product, products);
+            Assert.Contains(product, products.ToList());
         }
     }
 }
